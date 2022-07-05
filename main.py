@@ -5,6 +5,7 @@ import multiprocessing
 import threading
 import sys
 
+
 if not "C:\\ProgramData\\Anaconda3\\Lib\\site-packages" in sys.path:
 
  PkPath = "C:\\ProgramData\\Anaconda3\\Lib\\site-packages"
@@ -15,7 +16,12 @@ arr = [0 for i in range(16)]
 to_draw1 = [arr for k in range(2501)]
 to_draw = np.array(to_draw1)
 thetime = 0
+
+
+def init():
+    
 def readin():
+    print("read")
     ser = serial.Serial(port="COM6", baudrate=460800, bytesize=8, parity='N', stopbits=1, timeout=1)
 # 读取串口输入信息并输出。
     global arr 
@@ -52,7 +58,7 @@ def readin():
                     #print(cnt)
                     i = j + 1
                 
-            print( arr )
+            #print( arr )
             to_draw[thetime] = arr
             if(thetime > 2500):
                 to_draw = to_draw[1:]
@@ -61,6 +67,7 @@ def readin():
            
     ser.close()
 def draw():
+            print("draw")
             global arr
             global thetime
             global to_draw
@@ -82,39 +89,38 @@ def draw():
             y_13 = to_draw.T[13].tolist()
             y_14 = to_draw.T[14].tolist()
             y_15 = to_draw.T[15].tolist()
-            plt.subplots(16,1,1)
-            plt.subplots(16,1,2)
-            plt.subplots(16,1,3)
-            plt.subplots(16,1,4)
-            plt.subplots(16,1,5)
-            plt.subplots(16,1,6)
-            plt.subplots(16,1,7)
-            plt.subplots(16,1,8)
-            plt.subplots(16,1,9)
-            plt.subplots(16,1,10)
-            plt.subplots(16,1,11)
-            plt.subplots(16,1,12)
-            plt.subplots(16,1,13)
-            plt.subplots(16,1,14)
-            plt.subplots(16,1,15)
-            plt.subplots(16,1,16)
-            #plt.ylim(-0.01, 0.01 )
-            plt.plot(x,y_0,c='blue')
-            plt.plot(x,y_1,c='blue',linestyle=':')
-            plt.plot(x,y_2,c='blue',linestyle=':')
-            plt.plot(x,y_3,c='blue',linestyle=':')
-            plt.plot(x,y_4,c='blue',linestyle=':')
-            plt.plot(x,y_5,c='blue',linestyle=':')
-            plt.plot(x,y_6,c='blue',linestyle=':')
-            plt.plot(x,y_7,c='blue',linestyle=':')
-            plt.plot(x,y_8,c='blue',linestyle=':')
-            plt.plot(x,y_9,c='blue',linestyle=':')
-            plt.plot(x,y_10,c='blue',linestyle=':')
-            plt.plot(x,y_11,c='blue',linestyle=':')
-            plt.plot(x,y_12,c='blue',linestyle=':')
-            plt.plot(x,y_13,c='blue',linestyle=':')
-            plt.plot(x,y_14,c='blue',linestyle=':')
-            plt.plot(x,y_15,c='blue',linestyle=':')
+            ax1 = plt.subplot(16,1,1)
+            ax1.plot(x,y_0,c='blue')
+            ax2 = plt.subplot(16,1,2)
+            ax2.plot(x,y_1,c='blue')
+            ax3 = plt.subplot(16,1,3)
+            ax3.plot(x,y_2,c='blue')
+            ax4 = plt.subplot(16,1,4)
+            ax4.plot(x,y_3,c='blue')
+            ax5 = plt.subplot(16,1,5)
+            ax5.plot(x,y_4,c='blue')
+            ax6 = plt.subplot(16,1,6)
+            ax6.plot(x,y_5,c='blue')
+            ax7 = plt.subplot(16,1,7)
+            ax7.plot(x,y_6,c='blue')
+            ax8 = plt.subplot(16,1,8)
+            ax8.plot(x,y_7,c='blue')
+            ax9 = plt.subplot(16,1,9)
+            ax9.plot(x,y_8,c='blue')
+            ax10 = plt.subplot(16,1,10)
+            ax10.plot(x,y_9,c='blue')
+            ax11 = plt.subplot(16,1,11)
+            ax11.plot(x,y_10,c='blue')
+            ax12 = plt.subplot(16,1,12)
+            ax12.plot(x,y_11,c='blue')
+            ax13 = plt.subplot(16,1,13)
+            ax13.plot(x,y_12,c='blue')
+            ax14 = plt.subplot(16,1,14)
+            ax14.plot(x,y_13,c='blue')
+            ax15 = plt.subplot(16,1,15)
+            ax15.plot(x,y_14,c='blue')
+            ax16 = plt.subplot(16,1,16)
+            ax16.plot(x,y_15,c='blue')
             plt.show()
 if __name__ == '__main__':
     readin_process = multiprocessing.Process(target=readin)
